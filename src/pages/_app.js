@@ -2,20 +2,36 @@ import Head from "next/head";
 import { CacheProvider } from "@emotion/react";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import { CssBaseline } from "@mui/material";
+import { CssBaseline, CircularProgress,Box } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { createEmotionCache } from "../utils/create-emotion-cache";
 import { theme } from "../theme";
-import { QueryClient, QueryClientProvider, Hydrate, useMutation } from "react-query";
+import { QueryClient, QueryClientProvider, Hydrate } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { useEffect, useState } from "react";
-import 'react-toastify/dist/ReactToastify.css';
-import ProtectRoutes from "../components/protectRouter";
+import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 
 const clientSideEmotionCache = createEmotionCache();
 
 const App = (props) => {
+  const [verified, setVerified] = useState(false);
+
+  useEffect(() => {
+    async function checkAuth() {
+      const res = await fetch("/api/auth/check/admin");
+      const data = await res.json();
+      setVerified(data.success);
+
+      if (!data.success) {
+        localStorage.removeItem("userId");
+        router.push("/login");
+      }
+    }
+
+    checkAuth();
+  }, []);
+
   const [queryClient] = useState(
     () =>
       new QueryClient({
@@ -43,7 +59,13 @@ const App = (props) => {
           <ToastContainer autoClose={3000} />
           <QueryClientProvider client={queryClient}>
             <Hydrate state={pageProps.dehydratedState}>
-                {getLayout(<Component {...pageProps} />)}
+              {verified ? (
+                <>{getLayout(<Component {...pageProps} />)}</>
+              ) : (
+                <Box display="flex" justifyContent="center" alignItems="center" sx={{height: "100vh"}}>
+                  <CircularProgress />
+                </Box>
+              )}
             </Hydrate>
             <ReactQueryDevtools initialIsOpen={false} />
           </QueryClientProvider>

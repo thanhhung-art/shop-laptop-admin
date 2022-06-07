@@ -90,4 +90,4 @@ const Account = () => {
 
 Account.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 
-export default ProtectRouter(Account);
+export default Account;

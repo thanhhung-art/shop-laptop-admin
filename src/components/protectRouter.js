@@ -3,9 +3,8 @@ import { useEffect, useState } from "react";
 import { Box, CircularProgress } from "@mui/material";
 
 const ProtectRouter = (Component) => {
-  const getLayout = Component.getLayout ?? ((page) => page);
-
   return (props) => {
+    const getLayout = Component.getLayout ?? ((page) => page);
     const router = useRouter();
     const [verified, setVerified] = useState(false);
 

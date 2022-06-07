@@ -63,4 +63,4 @@ const Dashboard = () => {
 
 Dashboard.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 
-export default ProtectRouter(Dashboard);
+export default Dashboard

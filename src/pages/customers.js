@@ -76,4 +76,4 @@ const Customers = () => {
 
 Customers.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 
-export default ProtectRouter(Customers);
+export default Customers;
