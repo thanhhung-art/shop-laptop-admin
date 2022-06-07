@@ -5,7 +5,6 @@ import { CustomerListToolbar } from "../components/customer/customer-list-toolba
 import { DashboardLayout } from "../components/dashboard-layout";
 import { useQuery } from "react-query";
 import { useState } from "react";
-import ProtectRouter from "../components/protectRouter";
 
 const Customers = () => {
   const [searchValue, setSearchValue] = useState("");

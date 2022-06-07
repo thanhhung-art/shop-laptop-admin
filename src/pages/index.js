@@ -11,7 +11,6 @@ import { TrafficByDevice } from "../components/dashboard/traffic-by-device";
 import { DashboardLayout } from "../components/dashboard-layout";
 import { useRouter } from "next/router";
 import { useQuery } from "react-query";
-import ProtectRouter from "../components/protectRouter";
 
 const Dashboard = () => {
   const router = useRouter();

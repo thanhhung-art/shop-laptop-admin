@@ -8,7 +8,6 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { checkAuth } from "../utils/fetch";
 import { fetchUser } from "../utils/fetch";
-import ProtectRouter from "../components/protectRouter";
 
 const Account = () => {
   const id = null;
