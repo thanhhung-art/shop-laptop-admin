@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { Box, Container, Stack, Typography, CircularProgress } from "@mui/material";
+import { Box, Container, CircularProgress } from "@mui/material";
 import { CustomerListResults } from "../components/customer/customer-list-results";
 import { CustomerListToolbar } from "../components/customer/customer-list-toolbar";
 import { DashboardLayout } from "../components/dashboard-layout";
@@ -74,5 +74,21 @@ const Customers = () => {
 };
 
 Customers.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
+
+export async function getServerSideProps(ctx) {
+  
+  if (ctx.req.cookies.authtokenadmin) {
+    return {
+      props: {},
+    };
+  }
+
+  return {
+    redirect: {
+      destination: "/login",
+      permanent: false,
+    },
+  };
+}
 
 export default Customers;

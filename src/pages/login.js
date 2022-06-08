@@ -8,6 +8,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Facebook as FacebookIcon } from '../icons/facebook';
 import { Google as GoogleIcon } from '../icons/google';
 import { useMutation } from "react-query";
+import { useEffect } from 'react';
 
 const getUser = (values) => {
   return fetch("/api/auth/login", {
@@ -20,7 +21,7 @@ const getUser = (values) => {
 }
 
 const Login = () => {
-  const router = useRouter();
+  const router = useRouter();  
 
   const loginUser = useMutation(getUser, {
     onSuccess: (data) => {
@@ -212,14 +213,5 @@ const Login = () => {
     </>
   );
 };
-
-export async function getServerSideProps(ctx) {
-
-  console.log(ctx.req.session)
-
-  return {
-    props: {},
-  }
-}
 
 export default Login;

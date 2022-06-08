@@ -1,5 +1,4 @@
-import { Box, Container, TextField, Button, Grid, Checkbox, Typography } from "@mui/material";
-import { useFormik } from "formik";
+import { Box, TextField, Button, Grid, Checkbox, Typography } from "@mui/material";
 import Head from "next/head";
 import { DashboardLayout } from "../../components/dashboard-layout";
 import { useState, useEffect, useRef } from "react";
@@ -9,7 +8,7 @@ import UploadImage from "../../utils/uploadImage";
 import { useMutation, useQuery } from "react-query";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import format from "date-fns/format";
+import { getProduct } from "../../utils/fetch";
 
 const fields = {
   name: "",
@@ -27,16 +26,6 @@ const fields = {
   color: "",
   brand: "",
 };
-
-function getProduct(id) {
-  return fetch(`http://localhost:5000/api/products/find/${id}`)
-    .then((res) => res.json())
-    .then((res) => {
-      res.createdAt = format(Date.parse(res.createdAt), "dd/MM/yyyy");
-      res.updatedAt = format(Date.parse(res.updatedAt), "dd/MM/yyyy");
-      return res;
-    });
-}
 
 export default function EditProduct() {
   const router = useRouter();

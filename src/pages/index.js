@@ -9,12 +9,8 @@ import { TotalCustomers } from "../components/dashboard/total-customers";
 import { TotalProfit } from "../components/dashboard/total-profit";
 import { TrafficByDevice } from "../components/dashboard/traffic-by-device";
 import { DashboardLayout } from "../components/dashboard-layout";
-import { useRouter } from "next/router";
-import { useQuery } from "react-query";
 
-const Dashboard = () => {
-  const router = useRouter();
-
+const Dashboard = (props) => {
   return (
     <>
       <Head>
@@ -62,4 +58,20 @@ const Dashboard = () => {
 
 Dashboard.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 
-export default Dashboard
+export async function getServerSideProps(ctx) {
+  
+  if (ctx.req.cookies.authtokenadmin) {
+    return {
+      props: {},
+    };
+  }
+
+  return {
+    redirect: {
+      destination: "/login",
+      permanent: false,
+    },
+  };
+}
+
+export default Dashboard;

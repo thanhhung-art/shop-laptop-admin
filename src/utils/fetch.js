@@ -1,9 +1,17 @@
-
-
-export async function getAllProducts(){
+export async function getAllProducts() {
   const response = await fetch("/api/products");
   const data = await response.json();
   return data;
+}
+
+export function getProduct(id) {
+  return fetch(`http://localhost:5000/api/products/find/${id}`)
+    .then((res) => res.json())
+    .then((res) => {
+      res.createdAt = format(Date.parse(res.createdAt), "dd/MM/yyyy");
+      res.updatedAt = format(Date.parse(res.updatedAt), "dd/MM/yyyy");
+      return res;
+    });
 }
 
 export async function getAmountProduct() {
@@ -17,6 +25,5 @@ export async function getInfiniteProducts({ pageParam = 0 }) {
 }
 
 export const fetchUser = async (userId) => {
-  return fetch("/api/users/find/" + userId)
-    .then(res => res.json())
-}
+  return fetch("/api/users/find/" + userId).then((res) => res.json());
+};

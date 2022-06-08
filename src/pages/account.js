@@ -4,9 +4,7 @@ import { AccountProfile } from "../components/account/account-profile";
 import { AccountProfileDetails } from "../components/account/account-profile-details";
 import { DashboardLayout } from "../components/dashboard-layout";
 import { useMutation, useQuery } from "react-query";
-import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { checkAuth } from "../utils/fetch";
 import { fetchUser } from "../utils/fetch";
 
 const Account = () => {
@@ -88,5 +86,21 @@ const Account = () => {
 };
 
 Account.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
+
+export async function getServerSideProps(ctx) {
+  
+  if (ctx.req.cookies.authtokenadmin) {
+    return {
+      props: {},
+    };
+  }
+
+  return {
+    redirect: {
+      destination: "/login",
+      permanent: false,
+    },
+  };
+}
 
 export default Account;
