@@ -1,4 +1,4 @@
-import { Avatar, Box, Card, CardContent, Grid, Typography } from '@mui/material';
+import { Avatar, Box, Card, CardContent, Grid, Typography, CircularProgress } from '@mui/material';
 import MoneyIcon from '@mui/icons-material/Money';
 import { useQuery } from "react-query";
 
@@ -33,7 +33,7 @@ export const Budget = (props) => {
             color="textPrimary"
             variant="h4"
           >
-            {isLoading ? '...' : data.length}
+            {isLoading ? <CircularProgress /> : data.length}
           </Typography>
         </Grid>
         <Grid item>

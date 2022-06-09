@@ -12,9 +12,7 @@ export const TotalCustomers = (props) => {
 
   return (
     <>
-      {isLoading ? (
-        <Typography>loading</Typography>
-      ) : (
+      {(
         <Card {...props}>
           <CardContent>
             <Grid container spacing={3} sx={{ justifyContent: "space-between" }}>
@@ -23,7 +21,7 @@ export const TotalCustomers = (props) => {
                   TOTAL CUSTOMERS
                 </Typography>
                 <Typography color="textPrimary" variant="h4">
-                  {data !== null ? data : <CircularProgress />}
+                  { !isLoading ? data : <CircularProgress />}
                 </Typography>
               </Grid>
               <Grid item>

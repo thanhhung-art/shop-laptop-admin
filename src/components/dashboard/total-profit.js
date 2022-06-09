@@ -31,7 +31,7 @@ export const TotalProfit = (props) => {
             color="textPrimary"
             variant="h4"
           >
-            ${isLoading ? <CircularProgress /> : data.toFixed(2) }
+            {isLoading ? <CircularProgress /> : "$" + data.toFixed(2) }
           </Typography>
         </Grid>
         <Grid item>
