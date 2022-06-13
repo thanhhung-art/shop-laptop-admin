@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+
 export async function getAllProducts() {
   const response = await fetch("/api/products");
   const data = await response.json();
