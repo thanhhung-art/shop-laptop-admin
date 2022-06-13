@@ -15,12 +15,12 @@ import {
   Modal,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import format from "date-fns/format";
 import { getStorage, ref, deleteObject } from "firebase/storage";
 import { app } from "../../firebase";
 import { useQuery, dehydrate, QueryClient, useMutation } from "react-query";
 import UserReview from "../../components/product/UserReivew";
 import Link from "next/link";
+import { getProduct } from "../../utils/fetch";
 
 const style = {
   position: "absolute",
@@ -206,16 +206,6 @@ const Product = () => {
 };
 
 Product.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
-
-function getProduct(id) {
-  return fetch(`http://localhost:5000/api/products/find/${id}`)
-    .then((res) => res.json())
-    .then((res) => {
-      res.createdAt = format(Date.parse(res.createdAt), "dd/MM/yyyy");
-      res.updatedAt = format(Date.parse(res.updatedAt), "dd/MM/yyyy");
-      return res;
-    });
-}
 
 // export async function getStaticProps({ params }) {
 //   const pid = params?.pid;

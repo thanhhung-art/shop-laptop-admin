@@ -5,7 +5,7 @@ export async function getAllProducts() {
 }
 
 export function getProduct(id) {
-  return fetch(`http://localhost:5000/api/products/find/${id}`)
+  return fetch(`/api/products/find/${id}`)
     .then((res) => res.json())
     .then((res) => {
       res.createdAt = format(Date.parse(res.createdAt), "dd/MM/yyyy");
