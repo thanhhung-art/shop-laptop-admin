@@ -26,6 +26,7 @@ const Login = () => {
   const loginUser = useMutation(getUser, {
     onSuccess: (data) => {
       localStorage.setItem("userId", data.user._id);
+      console.log("success");
       router.push("/");
     }
   })

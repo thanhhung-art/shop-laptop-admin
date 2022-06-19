@@ -16,6 +16,7 @@ import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Link from "next/link";
 import { useQuery } from "react-query";
+import Image from "next/image";
 
 export const LatestProducts = (props) => {
   const { isLoading, data, error } = useQuery("fetchProducts", () => {
@@ -38,14 +39,15 @@ export const LatestProducts = (props) => {
             {data.map((product, i) => (
               <ListItem divider={i < data.length - 1} key={product._id}>
                 <ListItemAvatar>
-                  <img
+                  {/* <img
                     alt={product.name}
                     src={product.img}
                     style={{
                       height: 40,
                       width: 70,
                     }}
-                  />
+                  /> */}
+                  < Image src={product.img} height={40} width={70} alt="product image" />
                 </ListItemAvatar>
                 <Box>
                   <Typography variant="subtitle2" fontSize={12}>
