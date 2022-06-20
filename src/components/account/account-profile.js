@@ -33,7 +33,11 @@ export const AccountProfile = ({ user }) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(values),
-    })
+    }).then(res => res.json())
+  }, {
+    onSuccess: (data) => {
+      console.log(data);
+    }
   })
 
   useEffect(() => {

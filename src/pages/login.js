@@ -8,7 +8,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Facebook as FacebookIcon } from '../icons/facebook';
 import { Google as GoogleIcon } from '../icons/google';
 import { useMutation } from "react-query";
-import { useEffect } from 'react';
+import { useState } from 'react';
 
 const getUser = (values) => {
   return fetch("/api/auth/login", {
@@ -22,12 +22,23 @@ const getUser = (values) => {
 
 const Login = () => {
   const router = useRouter();  
+  const [errorPass, setErrorPass] = useState(null);
+  const [errorEmail, setErrorEmail] = useState(null);
 
   const loginUser = useMutation(getUser, {
     onSuccess: (data) => {
-      localStorage.setItem("userId", data.user._id);
-      console.log("success");
-      router.push("/");
+      if (data === "Invalid password") { 
+        setErrorPass(data) 
+        return
+      }
+      if (data === "Email not found") { 
+        setErrorEmail(data);
+        return
+      } 
+      if (data.user._id) {
+        localStorage.setItem("userId", data.user._id)
+        router.push("/");
+      }
     }
   })
 
@@ -150,27 +161,33 @@ const Login = () => {
               </Typography>
             </Box>
             <TextField
-              error={Boolean(formik.errors.email)}
+              error={Boolean(formik.errors.email) || errorEmail !== null}
               fullWidth
-              helperText={formik.touched.email && formik.errors.email}
+              helperText={formik.touched.email && formik.errors.email || errorEmail}
               label="Email Address"
               margin="normal"
               name="email"
               onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
+              onChange={(e) => {
+                formik.handleChange(e);
+                setErrorEmail(null);
+              }}
               type="email"
               value={formik.values.email}
               variant="outlined"
             />
             <TextField
-              error={Boolean(formik.errors.password)}
+              error={Boolean(formik.errors.password) || errorPass !== null}
               fullWidth
-              helperText={formik.touched.password && formik.errors.password}
+              helperText={formik.touched.password && formik.errors.password || errorPass}
               label="Password"
               margin="normal"
               name="password"
               onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
+              onChange={(e) => {
+                formik.handleChange(e);
+                setErrorPass(null);
+              }}
               type="password"
               value={formik.values.password}
               variant="outlined"
@@ -178,7 +195,6 @@ const Login = () => {
             <Box sx={{ py: 2 }}>
               <Button
                 color="primary"
-                disabled={formik.isSubmitting}
                 fullWidth
                 size="large"
                 type="submit"
