@@ -11,6 +11,7 @@ import {
 import { useEffect, useState } from "react";
 import UploadImage from "../../utils/uploadImage";
 import { useMutation } from "react-query";
+import { toast } from "react-toastify";
 
 export const AccountProfile = ({ user }) => {
   const id = localStorage.getItem("userId");
@@ -36,7 +37,7 @@ export const AccountProfile = ({ user }) => {
     }).then(res => res.json())
   }, {
     onSuccess: (data) => {
-      console.log(data);
+      toast.success("Profile image updated successfully")
     }
   })
 

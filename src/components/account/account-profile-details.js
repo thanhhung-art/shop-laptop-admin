@@ -10,6 +10,7 @@ import {
   TextField,
 } from "@mui/material";
 import { useQuery, useMutation } from "react-query";
+import { toast } from "react-toastify"
 
 export const AccountProfileDetails = ({ user }) => {
   const id = localStorage.getItem("userId");
@@ -29,7 +30,11 @@ export const AccountProfileDetails = ({ user }) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(values),
-    })
+    }).then(res => res.json())
+  }, {
+    onSuccess: (data) => {
+      toast.success("Profile updated successfully")
+    }
   })
 
   const handleSubmit = (event) => {
